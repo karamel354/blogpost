@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="uz" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Zamonaviy blog platformasi - bilim, tajriba va yangiliklar">
+    <title>Bilim Markazi - Ilg'or Blog Platformasi</title>
+    
+    <!-- Schema.org markaplar -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Bilim Markazi",
+        "url": "https://sizning-blogingiz.uz/",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://sizning-blogingiz.uz/qidiruv?soz={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    
+    <!-- Faviconlar -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- CSS fayllari -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Light mode ranglari */
+            --color-primary: #2563eb;
+            --color-primary-light: #3b82f6;
+            --color-surface: #ffffff;
+            --color-text: #1f2937;
+            --color-muted: #6b7280;
+            --color-accent: #10b981;
+            --color-border: #e5e7eb;
+            --color-background: #f9fafb;
+            
+            /* Tipografiya */
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-size-base: 1rem;
+            --line-height-base: 1.6;
+            
+            /* Shadow va radius */
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            
+            /* Transitions */
+            --transition-default: all 0.2s ease;
+        }
+
+        /* Dark mode */
+        [data-theme="dark"] {
+            --color-primary: #3b82f6;
+            --color-primary-light: #60a5fa;
+            --color-surface: #1f2937;
+            --color-text: #f9fafb;
+            --color-muted: #9ca3af;
+            --color-accent: #34d399;
+            --color-border: #374151;
+            --color-background: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+            background-color: var(--color-background);
+            transition: background-color 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--color-surface);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-default);
+        }
+
+        .nav-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            transition: var(--transition-default);
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--color-text);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0;
+            text-align: center;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: white;
+            margin-bottom: 4rem;
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition-default);
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: white;
+            color: var(--color-primary);
+        }
+
+        .btn-primary:hover {
+            background-color: rgba(255,255,255,0.9);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Blog Posts Section */
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--color-primary);
+            border-radius: 10px;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .post-card {
+            background-color: var(--color-surface);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-default);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+
+        .post-image {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .post-card:hover .post-image img {
+            transform: scale(1.05);
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-muted);
+            font-size: 0.875rem;
+            padding: 1rem 1.5rem 0;
+        }
+
+        .post-category {
+            background-color: var(--color-primary);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-size: 0.75rem;
+        }
+
+        .post-content {
+            padding: 1rem 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .post-title a {
+            color: var(--color-text);
+            text-decoration: none;
+            transition: var(--transition-default);
+        }
+
+        .post-title a:hover {
+            color: var(--color-primary);
+        }
+
+        .post-excerpt {
+            color: var(--color-muted);
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        .post-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .author-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author-name {
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        .reading-time {
+            font-size: 0.875rem;
+            color: var(--color-muted);
+        }
+
+        /* Categories Section */
+        .categories-section {
+            margin-bottom: 4rem;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .category-card {
+            background-color: var(--color-surface);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-default);
+        }
+
+        .category-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .category-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+        }
+
+        .category-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-count {
+            color: var(--color-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            background-color: var(--color-surface);
+            padding: 4rem 2rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            margin-bottom: 4rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .newsletter h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: var(--color-muted);
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .newsletter-input {
+            flex-grow: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            font-family: inherit;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .gdpr-checkbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: var(--color-muted);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-surface);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.125rem;
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
+
+        .footer-col h3::after {
+            content: "";
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--color-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--color-muted);
+            text-decoration: none;
+            transition: var(--transition-default);
+        }
+
+        .footer-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--color-background);
+            color: var(--color-text);
+            transition: var(--transition-default);
+        }
+
+        .social-link:hover {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-border);
+            color: var(--color-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--color-surface);
+                flex-direction: column;
+                padding: 1.5rem;
+                box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .hero {
+                padding: 4rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="/" class="logo">BilimMarkazi</a>
+                
+                <ul class="nav-links">
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/kategoriyalar">Kategoriyalar</a></li>
+                    <li><a href="/mualliflar">Mualliflar</a></li>
+                    <li><a href="/biz-haqimizda">Biz haqimizda</a></li>
+                    <li><a href="/aloqa">Aloqa</a></li>
+                </ul>
+                
+                <div class="nav-actions">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Change theme">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Texnologiya, Biznes va Shaxsiy Taraqqiyot Haqidagi Eng So'nggi Bilimlar</h1>
+            <p>Dasturlash, dizayn, marketing va shaxsiy rivojlanish bo'yicha eng yaxshi amaliy maslahatlar va yangiliklar</p>
+            <div class="hero-buttons">
+                <a href="/blog" class="btn btn-primary">Maqolalarni Ko'rish</a>
+                <a href="#newsletter" class="btn btn-outline">Yangiliklardan Xabardor Bo'ling</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Posts -->
+    <main class="container">
+        <section class="posts-section">
+            <h2 class="section-title">So'nggi Maqolalar</h2>
+            <div class="posts-grid">
+                <!-- Post 1 -->
+                <article class="post-card">
+                    <div class="post-image">
+                        <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect fill='%233b82f6' width='800' height='400'/%3E%3Ctext fill='%23ffffff' font-family='Arial' font-size='75' text-anchor='middle' x='400' y='225'%3EDasturlash%3C/text%3E%3C/svg%3E" alt="Dasturlashda yangi trendlar" loading="lazy">
+                    </div>
+                    <div class="post-meta">
+                        <span class="post-category">Dasturlash</span>
+                        <span>5 min o'qish</span>
+                    </div>
+                    <div class="post-content">
+                        <h3 class="post-title"><a href="/post/dasturlashda-yangi-trendlar">2023 yil dasturlash sohasidagi eng muhim yangiliklar</a></h3>
+                        <p class="post-excerpt">AI asosiday dasturlash vositalari, yangi frameworklar va dasturchilar uchun eng kerakli ko'nikmalar haqida batafsil...</p>
+                    </div>
+                    <div class="post-footer">
+                        <div class="post-author">
+                            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect fill='%239ca3af' width='100' height='100' rx='50'/%3E%3Ctext fill='%23ffffff' font-family='Arial' font-size='50' text-anchor='middle' x='50' y='67'%3EAM%3C/text%3E%3C/svg%3E" alt="Aziz Muhammad" class="author-avatar">
+                            <span class="author-name">Aziz Muhammad</span>
+                        </div>
+                        <div class="reading-time">5 min</div>
+                    </div>
+                </article>
+
+                <!-- Post 2 -->
+                <article class="post-card">
+                    <div class="post-image">
+                        <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect fill='%2310b981' width='800' height='400'/%3E%3Ctext fill='%23ffffff' font-family='Arial' font-size='75' text-anchor='middle' x='400' y='225'%3ESMM%3C/text%3E%3C/svg%3E" alt="SMM strategiyalari" loading="lazy">
+                    </div>
+                    <div class="post-meta">
+                        <span class="post-category">Marketing</span>
+                        <span>7 min o'qish</span>
+                    </div>
+                    <div class="post-content">
+                        <h3 class="post-title"><a href="/post/smm-2023">2023 yil uchun eng samarali SMM strategiyalari</a></h3>
+                        <p class="post-excerpt">Instagram, TikTok va yangi platformalarda auditoriyani jalb qilish va sotishlarni oshirishning zamonaviy usullari...</p>
+                    </div>
+                    <div class="post-footer">
+                        <div class="post-author">
+                            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect fill='%23f87171' width='100' height='100' rx='50'/%3E%3Ctext fill='%23ffffff' font-family='Arial' font-size='50' text-anchor='middle' x='50' y='67'%3EN%3C/text%3E%3C/svg%3E" alt="Nigora Xasanova" class="author-avatar">
+                            <span class="author-name">Nigora Xasanova</span>
+                        </div>
+                        <div class="reading-time">7 min</div>
+                    </div>
+                </article>
+
+                <!-- Post 3 -->
+                <article class="post-card">
+                    <div class="post-image">
+                        <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect fill='%238b5cf6' width='800' height='400'/%3E%3Ctext fill='%23ffffff' font-family='Arial' font-size='75' text-anchor='middle' x='400' y='225'%3EFA%3C/text%3E%3C/svg%3E" alt="Frontend arxitektura" loading="lazy">
+                    </div>
+                    <div class="post-meta">
+                        <span class="post-category">Dizayn</span>
+                        <span>8 min o'qish</span>
+                    </div>
+                    <div class="post-content">
+                        <h3 class="post-title"><a href="/post/frontend-arxitektura">Zamonaviy Frontend Dasturlar Arxitekturasi</a></h3>
+                        <p class="post-excerpt">Microfrontend, Jamstack va serverless - katta miqyosli ilovalar uchun eng yaxshi yondashuvlar...</p>
+                    </div>
+                    <div class="post-footer">
+                        <div class="post-author">
+                            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect fill='%23fbbf24' width='100' height='100' rx='50'/%3E%3Ctext fill='%23ffffff' font-family='Arial' font-size='50' text-anchor='middle' x='50' y='67'%3EJT%3C/text%3E%3C/svg%3E" alt="Jamshid Toshmatov" class="author-avatar">
+                            <span class="author-name">Jamshid Toshmatov</span>
+                        </div>
+                        <div class="reading-time">8 min</div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="categories-section">
+            <h2 class="section-title">Mashhur Kategoriyalar</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">💻</div>
+                    <h3 class="category-name">Dasturlash</h3>
+                    <div class="category-count">42 ta maqola</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🎨</div>
+                    <h3 class="category-name">Dizayn</h3>
+                    <div class="category-count">28 ta maqola</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">📱</div>
+                    <h3 class="category-name">Marketing</h3>
+                    <div class="category-count">35 ta maqola</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🚀</div>
+                    <h3 class="category-name">Startaplar</h3>
+                    <div class="category-count">19 ta maqola</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🧠</div>
+                    <h3 class="category-name">Shaxsiy Taraqqiyot</h3>
+                    <div class="category-count">24 ta maqola</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">💼</div>
+                    <h3 class="category-name">Karyera</h3>
+                    <div class="category-count">17 ta maqola</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section class="newsletter" id="newsletter">
+            <h2>Yangiliklardan Xabardor Bo'ling</h2>
+            <p>Eng so'nggi maqolalar, yangi darslar va maxsus takliflar haqida xabar olish uchun obuna bo'ling</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Elektron pochta manzilingiz" required>
+                <button type="submit" class="btn btn-primary">Obuna bo'lish</button>
+            </form>
+            <div class="gdpr-checkbox">
+                <input type="checkbox" id="gdprConsent" required>
+                <label for="gdprConsent">Shaxsiy ma'lumotlaringizni qayta ishlashga roziman</label>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>BilimMarkazi</h3>
+                    <p>Zamonaviy bilimlar va amaliy ko'nikmalarni ulashadigan platforma.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Telegram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 5L2 12.5L9 13.5M21 5L18.5 20L9 13.5M9 13.5V19L12.5 15.5"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Sahifalar</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Bosh sahifa</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/kategoriyalar">Kategoriyalar</a></li>
+                        <li><a href="/mualliflar">Mualliflar</a></li>
+                        <li><a href="/biz-haqimizda">Biz haqimizda</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Foydali Resurslar</h3>
+                    <ul class="footer-links">
+                        <li><a href="/dasturlash-resurslari">Dasturlash resurslari</a></li>
+                        <li><a href="/be-puls-kurslar">Bepul kurslar</a></li>
+                        <li><a href="/kitoblar">Tavsiya etilgan kitoblar</a></li>
+                        <li><a href="/dasturchi-asboblari">Dasturchi asboblari</a></li>
+                        <li><a href="/portfolio-namunalar">Portfolio namunalar</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Yordam</h3>
+                    <ul class="footer-links">
+                        <li><a href="/aloqa">Aloqa</a></li>
+                        <li><a href="/yordam-markazi">Yordam markazi</a></li>
+                        <li><a href="/shartlar-va-sharaitlar">Shartlar va sharaitalar</a></li>
+                        <li><a href="/maxfiylik-siyosati">Maxfiylik siyosati</a></li>
+                        <li><a href="/faq">Ko'p beriladigan savollar</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 BilimMarkazi. Barcha huquqlar himoyalangan.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Dark/Light mode toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // Newsletter form submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = newsletterForm.querySelector('input').value;
+            
+            // Here you would normally send the email to your server
+            alert(`Obunangiz qabul qilindi! ${email} manziliga tasdiqlash xabari yuborildi.`);
+            newsletterForm.reset();
+        });
+        
+        // Performance optimization
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js');
+            });
+        }
+        
+        // Preload important resources
+        const preloadLinks = [
+            '/fonts/inter.woff2',
+            '/images/logo.svg'
+        ];
+        
+        preloadLinks.forEach(link => {
+            const preloadLink = document.createElement('link');
+            preloadLink.rel = 'preload';
+            preloadLink.href = link;
+            preloadLink.as = link.includes('fonts') ? 'font' : 'image';
+            document.head.appendChild(preloadLink);
+        });
+    </script>
+</body>
+</html>
